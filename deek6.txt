@@ -1,0 +1,124 @@
+#Conditional Statements
+if x>10:
+    print('X is greater than 10')
+elif x==10:
+    print('x is equal to 10')
+else:
+    print("x is less than 10")
+
+salary=input("Applicant's salary is:")
+print(salary)
+
+
+salary=int(input("Applicants salary is:"))
+age=int(input("Applicants age is:"))
+cibil=int(input("Applicants cibil is:"))
+
+if salary>30000 and cibil>700 and age<=55:
+          print("Sanction")
+elif salary>30000 and cibil>700 and age>55:
+          print('Appraisal ')
+else:
+          print("Reject")
+
+#HR 
+cur_pay=int(input("Applicants current pay is:"))
+experience=int(input("Applicants experience:"))
+
+if cur_pay<40000 and experience>5:
+    print('Schedule')
+elif experience<5:
+    print('Shortlist')
+else:
+    print('Reject')
+
+# Marketing 
+
+purchase=int(input("Total bill:"))
+cred_days=int(input("Credit period:"))
+
+if purchase>=50000 and cred_days==0:
+    print("12% Discount")
+elif purchase>=50000 and cred_days==10:
+    print("11% Discount")
+elif purchase>=50000 and cred_days==20:
+    print("10% Discount")
+elif purchase>=30000 and cred_days==0:
+    print("7% Discount")
+elif purchase>=30000 and cred_days==10:
+    print("6% Discount")
+elif purchase>=30000 and cred_days==20:
+    print("5% Discount")
+else:
+    print("0% Discount")
+
+#Creating Data & Data Frame
+
+import pandas as pd
+data={
+    "Age":[30,35,40,45,50,38],
+    "Income":[50000,45000,50000,65000,70000,86000],
+    "Cibil":[650,700,720,600,760,590]
+}
+df=pd.DataFrame(data)
+#####################
+print(df)
+################
+def decision(row):
+    if row["Income"] > 30000 and row["Cibil"] > 700:
+        return"Sanction"
+    if row["Age"] > 55 and row["Income"] > 30000 and row["Cibil"] > 700:
+            return "Appraisal"
+        
+    else:
+        return "Reject"
+
+df["Decision"] = df.apply(decision, axis=1)
+################
+print(df)
+################
+df["Annual Income"]=df["Income"]*12
+################
+print(df)
+
+#Graphical 
+#Scatterplot 
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.scatterplot(x='Income', y='Cibil', hue='Decision', data=df)
+plt.title("Income vs CIBIL Score")
+plt.show()
+
+#Bar Chart
+
+df['Decision'].value_counts().plot(kind='bar')
+plt.title("Loan Decision Count")
+plt.xlabel("Decision")
+plt.ylabel("Count")
+plt.show()
+
+#Boxplot
+
+sns.boxplot(x='Decision', y='Income', data=df)
+plt.title("Income Distribution by Decision")
+plt.show()
+
+#Heatmap
+
+corr = df.corr(numeric_only=True)
+
+sns.heatmap(corr, annot=True, cmap='coolwarm')
+plt.title("Correlation Matrix")
+plt.show()
+
+sns.scatterplot(
+    x='Income',
+    y='Cibil',
+    hue='Decision',
+    data=df,
+    palette={'Sanction': 'green', 'Reject': 'red'}
+)
+plt.title("Income vs CIBIL Score")
+plt.show()
